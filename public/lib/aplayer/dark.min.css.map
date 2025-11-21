@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "dark.min.css",
-	"sourceRoot": "D:/myblog/hugo-blog-source",
+	"sourceRoot": "C:/Users/CHEN/Desktop/hugo-blog-source",
 	"sources": [
 		"themes/LoveIt/assets/lib/aplayer/dark.scss"
 	],
