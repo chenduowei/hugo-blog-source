@@ -34,7 +34,7 @@ jobs:
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v4
       with:
-        github_token: ${{ secrets.PAT_TOKEN }}
+        personal_token: ${{ secrets.PAT_TOKEN }}
         publish_dir: ./public
         external_repository: chenduowei/chenduowei.github.io
         publish_branch: main
