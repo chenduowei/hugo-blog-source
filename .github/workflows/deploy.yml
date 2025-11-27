@@ -8,29 +8,34 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        submodules: true  # Fetch Hugo themes (true OR recursive)
-        fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
+    steps:
+    # 1. 拉取源码 + 子模块（主题）
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: true
+        fetch-depth: 0
+
+    # 2. 安装 Hugo（extended + 最新版）
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v2
       with:
-        hugo-version: '0.111.3' # Use the most recent Hugo version available.
+        hugo-version: 'latest'
+        extended: true
 
+    # 3. 构建网站
     - name: Build
       run: |
         hugo --minify --cleanDestinationDir
         cp README.md public/
 
+    # 4. 发布到 chenduowei.github.io
     - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       with:
-        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./public
-        user_name: 'github-actions[bot]'
-        user_email: 'github-actions[bot]@users.noreply.github.com'
         external_repository: chenduowei/chenduowei.github.io
         publish_branch: main
+        force_orphan: true
